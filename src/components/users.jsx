@@ -13,7 +13,7 @@ const Users = () => {
     const renderPhrase = (number, text) => {
         if (number >= 5 || number % 10 === 1) {
             text = "тусанет с тобой сегодня"
-        } else if (number % 10 === 2 || number % 10 === 3 || number % 10 === 4 && number > 1) {
+        } else if ((number % 10 >= 2 || number % 10 <= 4) && number > 1) {
             text = "тусанут с тобой сегодня"
         } else {
             text = "Никто с тобой не тусанёт"
