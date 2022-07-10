@@ -8,9 +8,9 @@ const Users = () => {
         setUsers(prevState => prevState.filter((user) => user !== userId))
     }
     const renderPhrase = (number, text) => {
-        if (number >= 5 || number === 1) {
+        if (number >= 5 || number % 10 === 1) {
             text = "тусанет с тобой сегодня"
-        } else if (number < 5 && number > 1) {
+        } else if (number % 10 === 2 || number % 10 === 3 || number % 10 === 4 && number > 1) {
             text = "тусанут с тобой сегодня"
         } else {
             text = "Никто с тобой не тусанёт"
@@ -18,10 +18,6 @@ const Users = () => {
 
         return `${number}` > 0 ? `${number} ${text}` : `${text}`
     }
-
-    // const qualityColors = () => {
-    //     return item.color
-    // }
 
     const renderRows = (users) => {
         return users.map((user) => (
