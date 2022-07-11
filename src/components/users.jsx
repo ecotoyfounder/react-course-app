@@ -8,9 +8,8 @@ const Users = () => {
         setUsers(prevState => prevState.filter((user) => user !== userId))
     }
 
-    let text = ""
-
-    const renderPhrase = (number, text) => {
+    const renderPhrase = (number) => {
+        let text = ""
         if (number >= 5 || number % 10 === 1) {
             text = "тусанет с тобой сегодня"
         } else if ((number % 10 >= 2 || number % 10 <= 4) && number > 1) {
