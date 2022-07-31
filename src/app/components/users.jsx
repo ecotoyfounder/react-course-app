@@ -1,19 +1,19 @@
 import React, { useState } from "react";
-import Qualities from "./qualitie";
 import User from "./user";
 import Pagination from "./pagination";
+import { paginate } from "../utils/paginate";
+import Proptypes from "prop-types";
 
 const Users = ({ onDelete, onBookMark, users }) => {
   const count = users.length;
   const pageSize = 4;
   const [currentPage, setCurrentPage] = useState(1);
   const handlePageChange = (pageIndex) => {
-    console.log(pageIndex);
     setCurrentPage(pageIndex);
   };
 
-  const renderRows = (users) => {
-    return users.map((user) => {
+  const renderRows = () => {
+    return userCrop.map((user) => {
       return (
         <User
           key={user._id}
@@ -25,6 +25,7 @@ const Users = ({ onDelete, onBookMark, users }) => {
     });
   };
 
+  const userCrop = paginate(users, currentPage, pageSize);
   const tableHead = () => {
     if (count !== 0) {
       return (
@@ -57,4 +58,9 @@ const Users = ({ onDelete, onBookMark, users }) => {
   );
 };
 
+Users.propTypes = {
+  onDelete: Proptypes.func.isRequired,
+  onBookMark: Proptypes.func.isRequired,
+  users: Proptypes.array.isRequired,
+};
 export default Users;
