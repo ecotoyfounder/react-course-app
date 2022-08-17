@@ -1,30 +1,28 @@
 import React from "react";
-import Proptypes from "prop-types";
+import PropTypes from "prop-types";
 
 const SearchStatus = ({ length }) => {
   const renderPhrase = (number) => {
-    let text = "";
-    if (number >= 5 || number % 10 === 1) {
-      text = "тусанет с тобой сегодня";
-    } else if ((number % 10 >= 2 || number % 10 <= 4) && number > 1) {
-      text = "тусанут с тобой сегодня";
-    } else {
-      text = "Никто с тобой не тусанёт";
+    const lastOne = Number(number.toString().slice(-1));
+    if (number > 4 && number < 15) {
+      return "человек тусанет";
     }
-
-    return `${number}` > 0 ? `${number} ${text}` : `${text}`;
+    if (lastOne === 1) return "человек тусанет";
+    if ([2, 3, 4].indexOf(lastOne) >= 0) return "человека тусанут";
+    return "человек тусанет";
   };
-
-  const getBageClasses = () => {
-    let classes = "badge btn-sm m-2 ";
-    classes += length === 0 ? "bg-danger" : "bg-primary";
-    return classes;
-  };
-
-  return <span className={getBageClasses()}>{renderPhrase(length)}</span>;
+  return (
+    <h2>
+      <span className={"badge " + (length > 0 ? "bg-primary" : "bg-danger")}>
+        {length > 0
+          ? `${length + " " + renderPhrase(length)}   с тобой сегодня`
+          : "Никто с тобой не тусанет"}
+      </span>
+    </h2>
+  );
 };
-
 SearchStatus.propTypes = {
-  length: Proptypes.number.isRequired,
+  length: PropTypes.number,
 };
-export default SearchStatus
+
+export default SearchStatus;
