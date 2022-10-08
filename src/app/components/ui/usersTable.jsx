@@ -16,22 +16,22 @@ const UserTable = ({
   const columns = {
     name: {
       path: "name",
-      name: "Имя",
+      name: "Name",
       component: (user) => <Link to={`/users/${user._id}`}>{user.name}</Link>,
     },
     qualities: {
-      name: "Качества",
+      name: "Qualities",
       component: (user) => <Qualities qualities={user.qualities} />,
     },
-    professions: { path: "profession.name", name: "Профессия" },
+    professions: { path: "profession.name", name: "Profession" },
     completedMeetings: {
       path: "completedMeetings",
-      name: "Встретился, раз",
+      name: "Met me",
     },
-    rate: { path: "rate", name: "Оценка" },
+    rate: { path: "rate", name: "Rate" },
     bookmark: {
       path: "bookmark",
-      name: "Избранное",
+      name: "Favourites",
       component: (user) => (
         <BookMark
           status={user.bookmark}
