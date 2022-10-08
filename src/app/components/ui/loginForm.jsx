@@ -2,11 +2,12 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { validator } from "../../utils/validator";
 import TextField from "../common/form/textField";
+import CheckBoxField from "../common/form/checkBoxField";
 
 const LoginForm = () => {
-  const [data, setData] = useState({ email: "", password: "" });
+  const [data, setData] = useState({ email: "", password: "", stayOn: false });
   const [errors, setErrors] = useState({});
-  const handleChange = ({ target }) => {
+  const handleChange = (target) => {
     setData((prevState) => ({
       ...prevState,
       [target.name]: target.value,
@@ -15,24 +16,24 @@ const LoginForm = () => {
   const validatorConfig = {
     email: {
       isRequired: {
-        message: "Электронная почта обязательна для заполнения",
+        message: "Email is required",
       },
       isEmail: {
-        message: "Email введен некорректно",
+        message: "Email is not correct",
       },
     },
     password: {
       isRequired: {
-        message: "Пароль обязателен для заполнения",
+        message: "Password is required",
       },
       isCapitalSymbol: {
-        message: "Пароль должен содержать хотя бы одну заглавную букву",
+        message: "Password must contain capital letter",
       },
       isContainDigit: {
-        message: "Пароль должен содержать хотя бы одно число",
+        message: "Password must contain a number",
       },
       min: {
-        message: "Пароль должен состоять минимум из 8 символов",
+        message: "Password must contain min 8 symbols",
         value: 8,
       },
     },
@@ -54,37 +55,33 @@ const LoginForm = () => {
     console.log(data);
   };
   return (
-    <div className="container mt-5">
-      <div className="row">
-        <div className="col-md-6 offset-md-3 shadow p-4">
-          <h3 className="mb-4">Login</h3>
-          <form onSubmit={handleSubmit}>
-            <TextField
-              label="Электронная почта"
-              name="email"
-              value={data.email}
-              onChange={handleChange}
-              error={errors.email}
-            />
-            <TextField
-              label="Пароль"
-              type="password"
-              name="password"
-              value={data.password}
-              onChange={handleChange}
-              error={errors.password}
-            />
-            <button
-              className="btn btn-primary w-100 mx-auto"
-              type="submit"
-              disabled={!isValid}
-            >
-              Submit
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <TextField
+        label="Email"
+        name="email"
+        value={data.email}
+        onChange={handleChange}
+        error={errors.email}
+      />
+      <TextField
+        label="Password"
+        type="password"
+        name="password"
+        value={data.password}
+        onChange={handleChange}
+        error={errors.password}
+      />
+      <CheckBoxField onChange={handleChange} name="stayOn" value={data.stayOn}>
+        Stay logged in
+      </CheckBoxField>
+      <button
+        className="btn btn-primary w-100 mx-auto"
+        type="submit"
+        disabled={!isValid}
+      >
+        Submit
+      </button>
+    </form>
   );
 };
 
