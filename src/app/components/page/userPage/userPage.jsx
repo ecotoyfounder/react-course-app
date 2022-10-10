@@ -11,21 +11,23 @@ const UserPage = ({ userId }) => {
     api.users.getById(userId).then((data) => setUser(data));
   }, []);
   const handleClick = () => {
-    history.push("/users");
+    history.push(`/users/${userId}/edit`);
   };
   if (user) {
     return (
       <div>
         <h1> {user.name}</h1>
-        <h2>Профессия: {user.profession.name}</h2>
+        <h2>Profession: {user.profession.name}</h2>
         <QualitiesList qualities={user.qualities} />
         <p>completedMeetings: {user.completedMeetings}</p>
         <h2>Rate: {user.rate}</h2>
-        <button onClick={handleClick}> Все Пользователи</button>
+        <button className="btn btn-primary m-2" onClick={handleClick}>
+          Change
+        </button>
       </div>
     );
   } else {
-    return <h1>Loading</h1>;
+    return <h1>Loading...</h1>;
   }
 };
 
