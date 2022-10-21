@@ -1,15 +1,15 @@
-import React, {useEffect, useState} from "react";
-import {validator} from "../../../utils/validator";
+import React, { useEffect, useState } from "react";
+import { validator } from "../../../utils/validator";
 import TextField from "../../common/form/textField";
 import api from "../../../api";
 import SelectField from "../../common/form/selectField";
 import RadioField from "../../common/form/radioField";
 import MultiSelectField from "../../common/form/multiSelectField";
-import {useHistory, useParams} from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 const EditUserPage = () => {
-  const history = useHistory()
-  const {userId} = useParams();
+  const history = useHistory();
+  const { userId } = useParams();
   const [user, setUser] = useState();
   const [data, setData] = useState({
     name: "",
@@ -43,7 +43,7 @@ const EditUserPage = () => {
   const getProfessionById = (id) => {
     for (const prof of professions) {
       if (prof.value === id) {
-        return {_id: prof.value, name: prof.label};
+        return { _id: prof.value, name: prof.label };
       }
     }
   };
@@ -89,7 +89,7 @@ const EditUserPage = () => {
   const validatorConfig = {
     name: {
       isRequired: {
-        message: "Email is required",
+        message: "Name is required",
       },
     },
     email: {
@@ -120,7 +120,7 @@ const EditUserPage = () => {
     e.preventDefault();
     const isValid = validate();
     if (!isValid) return;
-    const {profession, qualities} = data;
+    const { profession, qualities } = data;
 
     const newData = {
       ...data,
@@ -129,65 +129,70 @@ const EditUserPage = () => {
     };
     console.log(newData);
 
-    api.users.update(userId, newData)
-    history.replace(`/users/${userId}`)
-
+    api.users.update(userId, newData);
+    history.replace(`/users/${userId}`);
   };
 
   return user && professions && qualities ? (
-      <form onSubmit={handleSubmit}>
-        <TextField
-            label="Name"
-            name="name"
-            value={data.name}
-            onChange={handleChange}
-            error={errors.name}
-        />
-        <TextField
-            label="Email"
-            name="email"
-            value={data.email}
-            onChange={handleChange}
-            error={errors.email}
-        />
-        <SelectField
-            label="Choose your profession"
-            defaultOption="Choose..."
-            options={professions}
-            name="profession"
-            onChange={handleChange}
-            value={data.profession}
-            error={errors.profession}
-        />
-        <RadioField
-            options={[
-              {name: "Male", value: "male"},
-              {name: "Female", value: "female"},
-              {name: "Other", value: "other"},
-            ]}
-            value={data.sex}
-            name="sex"
-            onChange={handleChange}
-            label="Choose your sex"
-        />
-        <MultiSelectField
-            options={qualities}
-            onChange={handleChange}
-            defaultValue={data.qualities}
-            name="qualities"
-            label="Choose your qualities"
-        />
+    <div className="container mt-5">
+      <div className="row">
+        <div className="col-md-6 offset-md-3 shadow p-4">
+          <form onSubmit={handleSubmit}>
+            <TextField
+              label="Name"
+              name="name"
+              value={data.name}
+              onChange={handleChange}
+              error={errors.name}
+            />
+            <TextField
+              label="Email"
+              name="email"
+              value={data.email}
+              onChange={handleChange}
+              error={errors.email}
+            />
+            <SelectField
+              label="Choose your profession"
+              defaultOption="Choose..."
+              options={professions}
+              name="profession"
+              onChange={handleChange}
+              value={data.profession}
+              error={errors.profession}
+            />
+            <RadioField
+              options={[
+                { name: "Male", value: "male" },
+                { name: "Female", value: "female" },
+                { name: "Other", value: "other" },
+              ]}
+              value={data.sex}
+              name="sex"
+              onChange={handleChange}
+              label="Choose your sex"
+            />
+            <MultiSelectField
+              options={qualities}
+              onChange={handleChange}
+              defaultValue={data.qualities}
+              name="qualities"
+              label="Choose your qualities"
+            />
 
-        <button
-            className="btn btn-primary w-100 mx-auto"
-            type="submit"
-            disabled={!isValid}
-        >
-          Update
-        </button>
-      </form>
+            <button
+              className="btn btn-primary w-100 mx-auto"
+              type="submit"
+              disabled={!isValid}
+            >
+              Update
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
   ) : (
-      <h1>Loading...</h1>
+    <h1>Loading...</h1>
   );
 };
 

@@ -8,26 +8,19 @@ const Users = () => {
   const params = useParams();
   const { userId, edit } = params;
 
-  let renderUsers;
-
-  if (edit) {
-    renderUsers = (
-      <div className="container mt-5">
-        <div className="row">
-          <div className="col-md-6 offset-md-3 shadow p-4">
-            <EditUserPage />
-          </div>
-        </div>
-      </div>
-    );
-  } else {
-    if (userId) {
-      renderUsers = <UserPage userId={userId} />;
-    } else {
-      renderUsers = <UsersListPage />;
-    }
-  }
-  return renderUsers;
+  return (
+    <>
+      {userId ? (
+        edit ? (
+          <EditUserPage />
+        ) : (
+          <UserPage userId={userId} />
+        )
+      ) : (
+        <UsersListPage />
+      )}
+    </>
+  );
 };
 
 export default Users;
