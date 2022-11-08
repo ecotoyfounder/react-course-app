@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import BookMark from "../common/bookmark";
-import Qualities from "./qualities/qualitiesList";
-import Table from "../common/table/table";
+import Qualities from "./qualities";
+import Table from "../common/table";
 import { Link } from "react-router-dom";
 
 const UserTable = ({
@@ -16,22 +16,22 @@ const UserTable = ({
   const columns = {
     name: {
       path: "name",
-      name: "Name",
+      name: "Имя",
       component: (user) => <Link to={`/users/${user._id}`}>{user.name}</Link>,
     },
     qualities: {
-      name: "Qualities",
+      name: "Качества",
       component: (user) => <Qualities qualities={user.qualities} />,
     },
-    professions: { path: "profession.name", name: "Profession" },
+    professions: { path: "profession.name", name: "Профессия" },
     completedMeetings: {
       path: "completedMeetings",
-      name: "Met me",
+      name: "Встретился, раз",
     },
-    rate: { path: "rate", name: "Rate" },
+    rate: { path: "rate", name: "Оценка" },
     bookmark: {
       path: "bookmark",
-      name: "Favourites",
+      name: "Избранное",
       component: (user) => (
         <BookMark
           status={user.bookmark}
