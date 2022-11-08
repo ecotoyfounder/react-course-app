@@ -3,4 +3,5 @@ import TableBody from "./tableBody";
 import TableHeader from "./tableHeader";
 
 export default Table;
-export { TableHeader, TableBody };
+
+export { TableBody, TableHeader };
