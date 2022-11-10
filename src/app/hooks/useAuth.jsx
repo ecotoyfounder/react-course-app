@@ -56,7 +56,8 @@ const AuthProvider = ({ children }) => {
       if (code === 400) {
         if (message === "EMAIL_NOT_FOUND") {
           const errorObject = {
-            email: "Необходимо авторизироваться",
+            email:
+              "Пользователь с таким email не существует. Необходимо зарегистрироваться",
           };
           throw errorObject;
         }
