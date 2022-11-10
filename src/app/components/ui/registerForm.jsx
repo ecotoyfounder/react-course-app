@@ -88,8 +88,6 @@ const RegisterForm = () => {
     const isValid = validate();
     if (!isValid) return;
     const newData = { ...data, qualities: data.qualities.map((q) => q.value) };
-
-    console.log(newData);
     try {
       await signUp(newData);
       history.push("/");
