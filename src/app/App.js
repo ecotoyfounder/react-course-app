@@ -12,25 +12,30 @@ import ProtectedRoute from "./components/common/protectedRoute";
 import LogOut from "./layouts/logOut";
 
 function App() {
-  return (
-    <div>
-      <AuthProvider>
-        <NavBar />
-        <QualitiesProvider>
-          <ProfessionProvider>
-            <Switch>
-              <ProtectedRoute path="/users/:userId?/:edit?" component={Users} />
-              <Route path="/login/:type?" component={Login} />
-              <Route path="/logout" component={LogOut} />
-              <Route path="/" exact component={Main} />
-              <Redirect to="/" />
-            </Switch>
-          </ProfessionProvider>
-        </QualitiesProvider>
-      </AuthProvider>
-      <ToastContainer />
-    </div>
-  );
+    return (
+        <div>
+            <AuthProvider>
+                <NavBar />
+
+                <QualitiesProvider>
+                    <ProfessionProvider>
+                        <Switch>
+                            <ProtectedRoute
+                                path="/users/:userId?/:edit?"
+                                component={Users}
+                            />
+                            <Route path="/login/:type?" component={Login} />
+                            <Route path="/logout" component={LogOut} />
+                            <Route path="/" exact component={Main} />
+                            <Redirect to="/" />
+                        </Switch>
+                    </ProfessionProvider>
+                </QualitiesProvider>
+            </AuthProvider>
+
+            <ToastContainer />
+        </div>
+    );
 }
 
 export default App;

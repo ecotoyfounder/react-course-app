@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { paginate } from "../../../utils/paginate";
 import Pagination from "../../common/pagination";
@@ -55,31 +55,30 @@ const UsersListPage = () => {
     setSortBy(item);
   };
 
-  function filterUsers(data) {
-    const filteredUsers = searchQuery
-      ? data.filter(
-          (user) =>
-            user.name.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1
-        )
-      : selectedProf
-      ? data.filter(
-          (user) =>
-            JSON.stringify(user.profession) === JSON.stringify(selectedProf)
-        )
-      : data;
-    return filteredUsers.filter((u) => u._id !== currentUser._id);
-  }
-
-  const filteredUsers = filterUsers(users);
-
-  const count = filteredUsers.length;
-  const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order]);
-  const usersCrop = paginate(sortedUsers, currentPage, pageSize);
-  const clearFilter = () => {
-    setSelectedProf();
-  };
-
   if (users) {
+    const filterUsers = (data) => {
+      const filteredUsers = searchQuery
+        ? data.filter(
+            (user) =>
+              user.name.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1
+          )
+        : selectedProf
+        ? data.filter(
+            (user) =>
+              JSON.stringify(user.profession) === JSON.stringify(selectedProf)
+          )
+        : data;
+      return filteredUsers.filter((u) => u._id !== currentUser._id);
+    };
+
+    const filteredUsers = filterUsers(users);
+    const count = filteredUsers.length;
+    const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order]);
+    const usersCrop = paginate(sortedUsers, currentPage, pageSize);
+    const clearFilter = () => {
+      setSelectedProf();
+    };
+
     return (
       <div className="d-flex">
         {professions && !professionsLoading && (

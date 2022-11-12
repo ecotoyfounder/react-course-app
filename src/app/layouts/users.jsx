@@ -1,34 +1,33 @@
 import React from "react";
-import { Redirect, useParams } from "react-router-dom";
+import { useParams, Redirect } from "react-router-dom";
 import EditUserPage from "../components/page/editUserPage";
 import UserPage from "../components/page/userPage";
 import UsersListPage from "../components/page/usersListPage";
+import { useAuth } from "../hooks/useAuth";
 import UserProvider from "../hooks/useUsers";
-import { getUserId } from "../services/localStorageService";
-
 const Users = () => {
-  const params = useParams();
-  const { userId, edit } = params;
-  const currentUserId = getUserId();
-  return (
-    <>
-      <UserProvider>
-        {userId ? (
-          edit ? (
-            currentUserId === userId ? (
-              <EditUserPage />
-            ) : (
-              <Redirect to={`/users/${currentUserId}/edit`} />
-            )
-          ) : (
-            <UserPage userId={userId} />
-          )
-        ) : (
-          <UsersListPage />
-        )}
-      </UserProvider>
-    </>
-  );
+    const params = useParams();
+    const { userId, edit } = params;
+    const { currentUser } = useAuth();
+    return (
+        <>
+            <UserProvider>
+                {userId ? (
+                    edit ? (
+                        userId === currentUser._id ? (
+                            <EditUserPage />
+                        ) : (
+                            <Redirect to={`/users/${currentUser._id}/edit`} />
+                        )
+                    ) : (
+                        <UserPage userId={userId} />
+                    )
+                ) : (
+                    <UsersListPage />
+                )}
+            </UserProvider>
+        </>
+    );
 };
 
 export default Users;
