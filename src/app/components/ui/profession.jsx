@@ -1,27 +1,19 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import {
-  getProfessionsById,
-  getProfessionsLoadingStatus,
-  loadProfessionsList,
+    getProfessionById,
+    getProfessionsLoadingStatus
 } from "../../store/professions";
 
 const Profession = ({ id }) => {
-  const dispatch = useDispatch();
-  const isLoading = useSelector(getProfessionsLoadingStatus());
-  useEffect(() => {
-    dispatch(loadProfessionsList());
-  }, []);
-
-  if (!isLoading) {
-    const professionsList = useSelector(getProfessionsById(id));
-    console.log(professionsList);
-
-    return <p>{professionsList.name}</p>;
-  } else return "Loading...";
+    const isLoading = useSelector(getProfessionsLoadingStatus());
+    const prof = useSelector(getProfessionById(id));
+    if (!isLoading) {
+        return <p>{prof.name}</p>;
+    } else return "Loading...";
 };
 Profession.propTypes = {
-  id: PropTypes.string,
+    id: PropTypes.string
 };
 export default Profession;
