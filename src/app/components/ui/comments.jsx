@@ -11,6 +11,7 @@ import {
 } from "../../store/comments";
 import { useParams } from "react-router-dom";
 import { nanoid } from "nanoid";
+import { getCurrentUserId } from "../../store/users";
 
 const Comments = () => {
   const { userId } = useParams();
@@ -20,6 +21,7 @@ const Comments = () => {
   }, [userId]);
   const isLoading = useSelector(getCommentsLoadingStatus());
   const comments = useSelector(getComments());
+  const currentUserId = useSelector(getCurrentUserId());
 
   const handleSubmit = (data) => {
     const comment = {
@@ -27,7 +29,7 @@ const Comments = () => {
       _id: nanoid(),
       pageId: userId,
       created_at: Date.now(),
-      userId: userId,
+      userId: currentUserId,
     };
 
     dispatch(createComment(comment));
