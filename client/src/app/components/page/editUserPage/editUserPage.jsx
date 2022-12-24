@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { validator } from "../../../utils/ validator";
 import TextField from "../../common/form/textField";
 import SelectField from "../../common/form/selectField";
 import RadioField from "../../common/form/radio.Field";
@@ -15,6 +14,7 @@ import {
     getProfessionsLoadingStatus
 } from "../../../store/professions";
 import { getCurrentUserData, updateUser } from "../../../store/users";
+import { validator } from "../../../utils/validator";
 
 const EditUserPage = () => {
     const [isLoading, setIsLoading] = useState(true);

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { validator } from "../../utils/ validator";
 import TextField from "../common/form/textField";
 import SelectField from "../common/form/selectField";
 import RadioField from "../common/form/radio.Field";
@@ -9,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getQualities } from "../../store/qualities";
 import { getProfessions } from "../../store/professions";
 import { signUp } from "../../store/users";
+import { validator } from "../../utils/validator";
 
 const RegisterForm = () => {
     const dispatch = useDispatch();
